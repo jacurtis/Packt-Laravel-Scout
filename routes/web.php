@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/posts/search', 'PostController@search')->name('posts.search');
 Route::resource('/posts', 'PostController');
 
 Route::get('login/{provider}', 'Auth\SocialAccountController@redirectToProvider');

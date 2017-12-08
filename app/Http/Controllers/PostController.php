@@ -10,7 +10,18 @@ class PostController extends Controller
 {
     public function __construct()
     {
-      $this->middleware('auth', ['except' => ['show']]);
+      $this->middleware('auth', ['except' => ['show', 'search']]);
+    }
+
+    public function search(Request $request)
+    {
+      if ($request->has('q')) {
+        $request->flashOnly('q');
+        $results = Post::search($request->q)->paginate(5);
+      } else {
+        $results = [];
+      }
+      return view('posts.search')->with('results', $results);
     }
 
     /**
